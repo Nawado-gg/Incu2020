@@ -32,14 +32,14 @@ def get_interface_html(host_name):
     return render_template('index.html', result = res)
 
 #get interfaces with filters via json (filter on hostname)
-@app.route("/<host_name>/interface.jsn", methods=["GET"])
+@app.route("/<host_name>/interface.json", methods=["GET"])
 def get_interface_json(host_name):
     db_val = {"hostname": host_name}
     result = mongo.db.interface.find(db_val)
     return jsonify(result)
 
 #get interfaces with filters via json (filter on hostname and interface name)
-@app.route("/<host_name>/<interface_name>/int.jsn", methods=["GET"])
+@app.route("/<host_name>/<interface_name>/details.json", methods=["GET"])
 def get_int_json(host_name, interface_name):
     db_val = {"hostname": host_name, "interface": interface_name.replace('.', '/')}
     print(db_val)
@@ -49,7 +49,7 @@ def get_int_json(host_name, interface_name):
 
 #rework part with for cycle.
 #get interfaces with filters via json (filter on hostname and interface name)
-@app.route("/<host_name>/<interface_name>/int.html", methods=["GET"])
+@app.route("/<host_name>/<interface_name>/details.html", methods=["GET"])
 def get_int_html(host_name, interface_name):
     db_val = {"hostname": host_name, "interface": interface_name.replace('.', '/')}
     result = mongo.db.interface.find(db_val)
